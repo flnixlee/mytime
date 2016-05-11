@@ -15,16 +15,17 @@
 	<mvc:resources mapping="/key/**" location="/key/" />
 	<mvc:resources mapping="/videos/**" location="/videos/" />
 	<mvc:resources mapping="/WEB-INF/jsp/*.html" location="/WEB-INF/jsp/" />
-	
+	<!-- 
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**admin/*"/>
 			<bean class="com.sffix.swx.mvc.interceptor.MyLoginInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
-	
+	 -->
+	 
 	<!-- 扫描Controller包 -->
-	<context:component-scan base-package="com.sffix.swx.mvc" />
+	<context:component-scan base-package="com.lift.ejb.mvc" />
 	
 	
 	

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd"
+	default-lazy-init="false" default-autowire="byName">
+	<!-- 配置静态资源，直接映射到对应的文件夹，不被DispatcherServlet处理 -->
+	<mvc:resources mapping="/js/**" location="/js/" />
+	<mvc:resources mapping="/css/**" location="/css/" />
+	<mvc:resources mapping="/ws/**" location="/ws/" />
+	<mvc:resources mapping="/images/**" location="/images/" />
+	<mvc:resources mapping="/key/**" location="/key/" />
+	<mvc:resources mapping="/videos/**" location="/videos/" />
+	<mvc:resources mapping="/WEB-INF/jsp/*.html" location="/WEB-INF/jsp/" />
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**admin/*"/>
+			<bean class="com.sffix.swx.mvc.interceptor.MyLoginInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	<!-- 扫描Controller包 -->
+	<context:component-scan base-package="com.sffix.swx.mvc" />
+	
+	
+	
+	<!-- 处理@RequestMapping注解，类级别和方法级别 -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="mappingJacksonHttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+	<bean id="mappingJacksonHttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>application/json;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 视图解析 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	
+	 <!-- 文件上传，id必须为multipartResolver --> 
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> 
+   		<property name="maxUploadSize" value="4194304"/> 
+	</bean>
+	
+	
+	<!--<bean class = "org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" >
+		<property name="interceptors">
+			<list>
+				<bean></bean>
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="loginInterceptor" class="com.sffix.swx.mvc.LoginInterceptor">
+		<property name="mappingURL" value="*repair/localRepairPage.html"></property>
+		<property name="mappingURL" value="*repair/input.html"></property>
+		<property name="mappingURL" value="*repair/deal.html"></property>
+		<property name="mappingURL" value="*repair/list.html"></property>
+		<property name="mappingURL" value="*repair/detail.html"></property>
+		<property name="mappingURL" value="*user/updatePage.html"></property>
+		<property name="mappingURL" value="*address/management.html"></property>
+	</bean>
+-->
+	
+
+</beans>

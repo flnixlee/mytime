@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:task="http://www.springframework.org/schema/task" 
+	xsi:schemaLocation="
+       http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
+       http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd"
+	default-lazy-init="false" default-autowire="byName">
+	<!-- JDBC属性文件 -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:jdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 阿里开源Druid连接池 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
+		<property name="url" value="${mysqljdbc.url}" />
+		<property name="username" value="${mysqljdbc.user}" />
+		<property name="password" value="${mysqljdbc.password}" />
+
+		<property name="initialSize" value="${druid.initialSize}" />
+		<property name="minIdle" value="${druid.minIdle}" />
+		<property name="maxActive" value="${druid.maxActive}" />
+		<property name="maxWait" value="${druid.maxWait}" />
+		<property name="timeBetweenEvictionRunsMillis" value="${druid.timeBetweenEvictionRunsMillis}" />
+		<property name="minEvictableIdleTimeMillis" value="${druid.minEvictableIdleTimeMillis}" />
+		<property name="validationQuery" value="${druid.validationQuery}" />
+		<property name="testWhileIdle" value="${druid.testWhileIdle}" />
+		<property name="testOnBorrow" value="${druid.testOnBorrow}" />
+		<property name="testOnReturn" value="${druid.testOnReturn}" />
+		<property name="poolPreparedStatements" value="${druid.poolPreparedStatements}" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="${druid.maxPoolPreparedStatementPerConnectionSize}" />
+	</bean>
+	<!-- Hiberante配置 -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${mysql.hibernate.dialect}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+				<prop key="hibernate.query.substitutions">${hibernate.query.substitutions}</prop>
+				<prop key="hibernate.jdbc.batch_size">${hibernate.jdbc.batch_size}</prop>
+				<prop key="hibernate.default_batch_fetch_size">${hibernate.default_batch_fetch_size}</prop>
+				<prop key="hibernate.max_fetch_depth">${hibernate.max_fetch_depth}</prop>
+				<prop key="hibernate.generate_statistics">${hibernate.generate_statistics}</prop>
+				<prop key="hibernate.bytecode.use_reflection_optimizer">${hibernate.bytecode.use_reflection_optimizer}</prop>
+				<prop key="hibernate.cache.use_second_level_cache">${hibernate.cache.use_second_level_cache}</prop>
+				<prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
+				<prop key="hibernate.cache.region.factory_class">${hibernate.cache.region.factory_class}</prop>
+				<prop key="net.sf.ehcache.configurationResourceName">${net.sf.ehcache.configurationResourceName}</prop>
+				<prop key="hibernate.cache.use_structured_entries">${hibernate.cache.use_structured_entries}</prop>
+			</props>
+		</property>
+		<property name="mappingLocations">
+			<list>
+				<value>${hibernate.hbm}</value>
+			</list>
+		</property>
+		<property name="packagesToScan">
+			<list>
+				<value>${hibernate.packagesToScan.model}</value>
+				<value>${hibernate.packagesToScan.entity}</value>
+				<value>${hibernate.packagesToScan.admin}</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 开启AOP监听 只对当前配置文件有效 -->
+	<aop:aspectj-autoproxy expose-proxy="true" />
+
+	<!-- 开启注解事务 只对当前配置文件有效 -->
+	<tx:annotation-driven transaction-manager="txManager" />
+	<bean id="txManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<!--hibernate4必须配置为开启事务 否则 getCurrentSession()获取不到 -->
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="remove*" propagation="REQUIRED" />
+			<tx:method name="batchSave*" propagation="REQUIRED" />
+			<tx:method name="batchUpdate*" propagation="REQUIRED" />
+			<tx:method name="batchDelete*" propagation="REQUIRED" />
+			<tx:method name="init*" propagation="REQUIRED" />
+			<tx:method name="get*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="find*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="query*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="*" propagation="REQUIRED"  read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<!-- 对MVC、Service、Dao层实施事务 -->
+		<aop:advisor pointcut="${aop.pointcut.mvc}"
+			advice-ref="txAdvice" />
+		<aop:advisor pointcut="${aop.pointcut.service}"
+			advice-ref="txAdvice" />
+		<aop:advisor pointcut="${aop.pointcut.dao}"
+			advice-ref="txAdvice" />
+	</aop:config>
+
+	<!-- 开启注解方式依赖注入 -->
+	<context:annotation-config />
+	<context:component-scan base-package="com.sffix.framework" />
+	<context:component-scan base-package="com.sffix.swx" />
+	
+	<!-- ws相关内容,客户端或者服务端 -->
+    <import resource="classpath:webService.xml"/>
+    
+    <!-- 注解方式实现定时器配置  java注解 @Scheduled(cron = "* 0/20 * * * *")实现定时任务，备用-->
+    <!--  <context:component-scan base-package="*.timer" />
+    <task:executor id="executor" pool-size="1" />	
+    <task:scheduler id="scheduler" pool-size="1" />	
+    <task:annotation-driven executor="executor" scheduler="scheduler" /> -->
+	 <!--  
+	<bean id="syncDataService" class="com.sffix.swx.foms.service.superfixserver.SyncDataService" />   
+  	<task:scheduled-tasks>  -->
+  		<!--定时推送失败的状态单据
+          <task:scheduled ref="syncDataService" method="sendYDKXOrderStatus" cron="0 0 */1 * * ?" />  -->
+        <!--定时签收超过7天没有签收的单据
+          <task:scheduled ref="syncDataService" method="syncYDKXUpdateOrderStatus" cron="0 0 1 ? * *" />  -->
+        <!--定时同步品牌机型 每天凌晨1点执行一次
+          <task:scheduled ref="syncDataService" method="sendYDKXBrandandModel" cron="0 0 1 15 * ?" />   -->
+    <!-- </task:scheduled-tasks>-->
+    
+</beans>

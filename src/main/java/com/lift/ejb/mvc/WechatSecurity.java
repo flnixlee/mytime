@@ -17,7 +17,6 @@ import com.lift.ejb.dispatcher.MsgDispatcher;
 import com.lift.ejb.util.MessageUtil;
 import com.lift.ejb.util.SignUtil;
 
-
 @Controller
 @RequestMapping("/wechat")
 public class WechatSecurity {

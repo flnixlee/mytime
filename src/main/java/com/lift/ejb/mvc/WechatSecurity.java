@@ -35,7 +35,7 @@ public class WechatSecurity {
 	 * @author dapengniao
 	 * @date 2016年3月4日 下午6:20:00
 	 */
-	@RequestMapping(value = "security", method = RequestMethod.GET)
+	@RequestMapping(value = "/security", method = RequestMethod.GET)
 	public void doGet(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "signature", required = true) String signature,
 			@RequestParam(value = "timestamp", required = true) String timestamp, @RequestParam(value = "nonce", required = true) String nonce,
 			@RequestParam(value = "echostr", required = true) String echostr) {

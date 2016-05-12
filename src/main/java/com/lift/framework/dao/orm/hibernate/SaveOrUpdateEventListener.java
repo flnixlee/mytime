@@ -15,44 +15,43 @@ import com.lift.framework.entity.EntityBean;
 // @Component(value="listener")
 public class SaveOrUpdateEventListener implements PreInsertEventListener, PreUpdateEventListener {
 
-    private static final long serialVersionUID = -2297408806609187435L;
+	private static final long serialVersionUID = -2297408806609187435L;
 
-    public boolean onPreInsert(PreInsertEvent event) {
-	if (event.getEntity() instanceof EntityBean) {
-	    // ServletRequestAttributes attr = (ServletRequestAttributes)
-	    // RequestContextHolder.currentRequestAttributes();
-	    // HttpSession session = attr.getRequest().getSession(true);
+	public boolean onPreInsert(PreInsertEvent event) {
+		if (event.getEntity() instanceof EntityBean) {
+			// ServletRequestAttributes attr = (ServletRequestAttributes)
+			// RequestContextHolder.currentRequestAttributes();
+			// HttpSession session = attr.getRequest().getSession(true);
 
-	    // int user = session.getAttribute(Constant.CURRENT_USER) == null ?
-	    // EntityBean.DEFAULT_USER :
-	    // (Integer)session.getAttribute(Constant.CURRENT_USER);
+			// int user = session.getAttribute(Constant.CURRENT_USER) == null ?
+			// EntityBean.DEFAULT_USER :
+			// (Integer)session.getAttribute(Constant.CURRENT_USER);
 
-	    EntityBean bean = (EntityBean) event.getEntity();
+			EntityBean bean = (EntityBean) event.getEntity();
 
-	    // bean.setCreationUser(user);
-	    // bean.setCreationTime(new Date());
-	    //
-	    // bean.setLastUpdateUser(user);
-	    bean.setLastUpdateTime(new Date());
+			// bean.setCreationUser(user);
+			// bean.setCreationTime(new Date());
+			//
+			// bean.setLastUpdateUser(user);
+			bean.setLastUpdateTime(new Date());
+		}
+		return true;
 	}
-	return true;
-    }
 
-    @Override
-    public boolean onPreUpdate(PreUpdateEvent event) {
-	if (event.getEntity() instanceof EntityBean) {
-	    // ServletRequestAttributes attr = (ServletRequestAttributes)
-	    // RequestContextHolder.currentRequestAttributes();
-	    // HttpSession session = attr.getRequest().getSession(true);
+	public boolean onPreUpdate(PreUpdateEvent event) {
+		if (event.getEntity() instanceof EntityBean) {
+			// ServletRequestAttributes attr = (ServletRequestAttributes)
+			// RequestContextHolder.currentRequestAttributes();
+			// HttpSession session = attr.getRequest().getSession(true);
 
-	    // int user = session.getAttribute(Constant.CURRENT_USER) == null ?
-	    // EntityBean.DEFAULT_USER :
-	    // (Integer)session.getAttribute(Constant.CURRENT_USER);
+			// int user = session.getAttribute(Constant.CURRENT_USER) == null ?
+			// EntityBean.DEFAULT_USER :
+			// (Integer)session.getAttribute(Constant.CURRENT_USER);
 
-	    EntityBean bean = (EntityBean) event.getEntity();
-	    // bean.setLastUpdateUser(user);
-	    bean.setLastUpdateTime(new Date());
+			EntityBean bean = (EntityBean) event.getEntity();
+			// bean.setLastUpdateUser(user);
+			bean.setLastUpdateTime(new Date());
+		}
+		return true;
 	}
-	return true;
-    }
 }

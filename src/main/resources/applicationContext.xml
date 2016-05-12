@@ -118,11 +118,11 @@
 
 	<!-- 开启注解方式依赖注入 -->
 	<context:annotation-config />
-	<context:component-scan base-package="com.sffix.framework" />
-	<context:component-scan base-package="com.sffix.swx" />
+	<context:component-scan base-package="com.lift.framework" />
+	<context:component-scan base-package="com.lift.ejb" />
 	
 	<!-- ws相关内容,客户端或者服务端 -->
-    <import resource="classpath:webService.xml"/>
+    <!-- <import resource="classpath:webService.xml"/> -->
     
     <!-- 注解方式实现定时器配置  java注解 @Scheduled(cron = "* 0/20 * * * *")实现定时任务，备用-->
     <!--  <context:component-scan base-package="*.timer" />

@@ -5,7 +5,7 @@ import java.util.Formatter;
 import java.util.HashMap;
 import java.util.UUID;
 
-import com.lift.ejb.web.util.GlobalConstants;
+import com.lift.ejb.util.GlobalConstants;
 
 
 /**

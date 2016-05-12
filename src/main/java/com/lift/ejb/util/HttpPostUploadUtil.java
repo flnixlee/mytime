@@ -14,8 +14,6 @@ import java.util.Map;
 
 import javax.activation.MimetypesFileTypeMap;
 
-import com.lift.ejb.web.util.GlobalConstants;
-
 /**
  * ClassName: HttpPostUploadUtil
  * 

@@ -1,4 +1,4 @@
-package com.lift.ejb.web.util;
+package com.lift.ejb.util;
 
 import java.util.Properties;
 

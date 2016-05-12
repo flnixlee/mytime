@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import com.lift.ejb.web.util.GlobalConstants;
+import com.lift.ejb.util.GlobalConstants;
 
 /**
  * ClassName: InterfaceUrlInti

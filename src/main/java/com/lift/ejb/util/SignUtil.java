@@ -12,7 +12,7 @@ import java.util.Arrays;
  */
 public class SignUtil {  
     // 与接口配置信息中的Token要一致   
-    private static String token = "dapengniaowechat";  
+    private static String token = "wechat4mytime";  
     /** 
      * 验证签名 
      * @param signature 

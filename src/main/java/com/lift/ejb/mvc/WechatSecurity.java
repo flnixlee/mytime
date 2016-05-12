@@ -17,9 +17,11 @@ import com.lift.ejb.dispatcher.MsgDispatcher;
 import com.lift.ejb.util.MessageUtil;
 import com.lift.ejb.util.SignUtil;
 
+
 @Controller
 @RequestMapping("/wechat")
 public class WechatSecurity {
+
 	private static Logger logger = Logger.getLogger(WechatSecurity.class);
 
 	/**
@@ -35,12 +37,8 @@ public class WechatSecurity {
 	 * @date 2016年3月4日 下午6:20:00
 	 */
 	@RequestMapping(value = "security", method = RequestMethod.GET)
-	public void doGet(
-			HttpServletRequest request,
-			HttpServletResponse response,
-			@RequestParam(value = "signature", required = true) String signature,
-			@RequestParam(value = "timestamp", required = true) String timestamp,
-			@RequestParam(value = "nonce", required = true) String nonce,
+	public void doGet(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "signature", required = true) String signature,
+			@RequestParam(value = "timestamp", required = true) String timestamp, @RequestParam(value = "nonce", required = true) String nonce,
 			@RequestParam(value = "echostr", required = true) String echostr) {
 		try {
 			if (SignUtil.checkSignature(signature, timestamp, nonce)) {
@@ -58,29 +56,29 @@ public class WechatSecurity {
 	/**
 	 * @Description: 接收微信端消息处理并做分发
 	 * @param @param request
-	 * @param @param response   
+	 * @param @param response
 	 * @author dapengniao
 	 * @date 2016年3月7日 下午4:06:47
 	 */
-	@RequestMapping(value = "security", method = RequestMethod.POST)
-	public void DoPost(HttpServletRequest request,HttpServletResponse response) {
+	@RequestMapping(value = "/security", method = RequestMethod.POST)
+	public void DoPost(HttpServletRequest request, HttpServletResponse response) {
 		response.setCharacterEncoding("utf-8");
-		try{
-			Map<String, String> map=MessageUtil.parseXml(request);
-			String msgtype=map.get("MsgType");
-			if(MessageUtil.REQ_MESSAGE_TYPE_EVENT.equals(msgtype)){
-				String msgrsp=EventDispatcher.processEvent(map); //进入事件处理
+		try {
+			Map<String, String> map = MessageUtil.parseXml(request);
+			String msgtype = map.get("MsgType");
+			if (MessageUtil.REQ_MESSAGE_TYPE_EVENT.equals(msgtype)) {
+				String msgrsp = EventDispatcher.processEvent(map); // 进入事件处理
 				PrintWriter out = response.getWriter();
 				out.print(msgrsp);
 				out.close();
-			}else{
-				String msgrsp=MsgDispatcher.processMessage(map); //进入消息处理
+			} else {
+				String msgrsp = MsgDispatcher.processMessage(map); // 进入消息处理
 				PrintWriter out = response.getWriter();
 				out.print(msgrsp);
 				out.close();
 			}
-		}catch(Exception e){
-			logger.error(e,e);
+		} catch (Exception e) {
+			logger.error(e, e);
 		}
 	}
 }

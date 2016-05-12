@@ -2,8 +2,8 @@ package com.lift.ejb.common;
 
 import java.util.HashMap;
 
+import com.lift.ejb.util.GlobalConstants;
 import com.lift.ejb.util.HttpUtils;
-import com.lift.ejb.web.util.GlobalConstants;
 
 import net.sf.json.JSONObject;
 

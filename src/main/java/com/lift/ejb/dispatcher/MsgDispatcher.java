@@ -37,7 +37,7 @@ public class MsgDispatcher {
 			}else if("3".equals(content)){
 				txtmsg.setContent("你好，你发送的内容是3！");
 			}else if("4".equals(content)){
-				txtmsg.setContent("<a href=\"http://www.cuiyongzhi.com\">崔用志博客</a>");
+				txtmsg.setContent("<a href=\"http://51mytime.net\">卖柴网</a>");
 			}else{
 				txtmsg.setContent("你好，欢迎来到凤腾工作室！");
 			}
@@ -55,9 +55,9 @@ public class MsgDispatcher {
 			System.out.println("==============这是图片消息！");
 			Article article=new Article();
 			article.setDescription("这是图文消息1"); //图文消息的描述
-			article.setPicUrl("http://res.cuiyongzhi.com/2016/03/201603086749_6850.png"); //图文消息图片地址
-			article.setTitle("图文消息1");  //图文消息标题
-			article.setUrl("http://www.cuiyongzhi.com");  //图文url链接
+			article.setPicUrl("http://mytime.ngrok.natapp.cn/images/lift_010.png"); //图文消息图片地址
+			article.setTitle("您好，这就是flnixlee的真容！");  //图文消息标题
+			article.setUrl("http://51mytime.net");  //图文url链接
 			List<Article> list=new ArrayList<Article>();
 			list.add(article);     //这里发送的是单图文，如果需要发送多图文则在这里list中加入多个Article即可！
 			newmsg.setArticleCount(list.size());

@@ -39,7 +39,7 @@ public class MsgDispatcher {
 			}else if("4".equals(content)){
 				txtmsg.setContent("<a href=\"http://www.cuiyongzhi.com\">崔用志博客</a>");
 			}else{
-				txtmsg.setContent("你好，欢迎来到崔用志博客！");
+				txtmsg.setContent("你好，欢迎来到凤腾工作室！");
 			}
 			return MessageUtil.textMessageToXml(txtmsg);
 		}

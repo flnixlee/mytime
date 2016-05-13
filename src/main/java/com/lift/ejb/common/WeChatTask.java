@@ -21,8 +21,7 @@ public class WeChatTask {
 
 	/**
 	 * @Description: 任务执行体
-	 * @param @throws
-	 *          Exception
+	 * @param @throws Exception
 	 * @author dapengniao
 	 * @date 2016年3月10日 下午2:04:37
 	 */

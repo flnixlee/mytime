@@ -15,14 +15,13 @@ import net.sf.json.JSONObject;
  * @date 2016年3月18日 下午2:00:52
  */
 public class GetUseInfo {
+	//private static Logger logger = Logger.getLogger(GetUseInfo.class);
 
 	/**
 	 * @Description: 通过openid获取用户微信信息
-	 * @param @param
-	 *          openid
+	 * @param @param openid
 	 * @param @return
-	 * @param @throws
-	 *          Exception
+	 * @param @throws Exception
 	 * @author dapengniao
 	 * @date 2016年3月18日 下午2:01:30
 	 */

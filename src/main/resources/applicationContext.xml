@@ -122,22 +122,8 @@
 	<context:component-scan base-package="com.lift.ejb" />
 	
 	<!-- ws相关内容,客户端或者服务端 -->
-    <!-- <import resource="classpath:webService.xml"/> -->
+  <!-- <import resource="classpath:webService.xml"/> -->
     
-    <!-- 注解方式实现定时器配置  java注解 @Scheduled(cron = "* 0/20 * * * *")实现定时任务，备用-->
-    <!--  <context:component-scan base-package="*.timer" />
-    <task:executor id="executor" pool-size="1" />	
-    <task:scheduler id="scheduler" pool-size="1" />	
-    <task:annotation-driven executor="executor" scheduler="scheduler" /> -->
-	 <!--  
-	<bean id="syncDataService" class="com.sffix.swx.foms.service.superfixserver.SyncDataService" />   
-  	<task:scheduled-tasks>  -->
-  		<!--定时推送失败的状态单据
-          <task:scheduled ref="syncDataService" method="sendYDKXOrderStatus" cron="0 0 */1 * * ?" />  -->
-        <!--定时签收超过7天没有签收的单据
-          <task:scheduled ref="syncDataService" method="syncYDKXUpdateOrderStatus" cron="0 0 1 ? * *" />  -->
-        <!--定时同步品牌机型 每天凌晨1点执行一次
-          <task:scheduled ref="syncDataService" method="sendYDKXBrandandModel" cron="0 0 1 15 * ?" />   -->
-    <!-- </task:scheduled-tasks>-->
+	
     
 </beans>

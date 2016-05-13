@@ -138,8 +138,7 @@ public class MessageUtil {
 	 * @date 2016年3月7日 上午10:04:02
 	 */
 	@SuppressWarnings("unchecked")
-	public static Map<String, String> parseXml(HttpServletRequest request)
-			throws Exception {
+	public static Map<String, String> parseXml(HttpServletRequest request) throws Exception {
 		// 将解析结果存储在HashMap中
 		Map<String, String> map = new HashMap<String, String>();
 		// 从request中取得输入流
@@ -240,8 +239,10 @@ public class MessageUtil {
 	 * 对象到xml的处理
 	 */
 	private static XStream xstream = new XStream(new XppDriver() {
+
 		public HierarchicalStreamWriter createWriter(Writer out) {
 			return new PrettyPrintWriter(out) {
+
 				// 对所有xml节点的转换都增加CDATA标记
 				boolean cdata = true;
 

@@ -15,31 +15,31 @@ import com.lift.ejb.util.GlobalConstants;
  */
 public class InterfaceUrlInti {
 
-	public synchronized static void init(){
+	public synchronized static void init() {
 		ClassLoader cl = Thread.currentThread().getContextClassLoader();
 		Properties props = new Properties();
-		if(GlobalConstants.interfaceUrlProperties==null){
+		if (GlobalConstants.interfaceUrlProperties == null) {
 			GlobalConstants.interfaceUrlProperties = new Properties();
 		}
 		InputStream in = null;
 		try {
-			in = cl.getResourceAsStream("interface_url.properties");
+			in = cl.getResourceAsStream("configs.properties");
 			props.load(in);
-			for(Object key : props.keySet()){
+			for (Object key : props.keySet()) {
 				GlobalConstants.interfaceUrlProperties.put(key, props.get(key));
 			}
-			
-			props = new Properties();
-			in = cl.getResourceAsStream("wechat.properties");
-			props.load(in);
-			for(Object key : props.keySet()){
-				GlobalConstants.interfaceUrlProperties.put(key, props.get(key));
-			}
-			
+
+//			props = new Properties();
+//			in = cl.getResourceAsStream("wechat.properties");
+//			props.load(in);
+//			for (Object key : props.keySet()) {
+//				GlobalConstants.interfaceUrlProperties.put(key, props.get(key));
+//			}
+
 		} catch (IOException e) {
 			e.printStackTrace();
-		}finally{
-			if(in!=null){
+		} finally {
+			if (in != null) {
 				try {
 					in.close();
 				} catch (IOException e) {

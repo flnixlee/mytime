@@ -31,7 +31,6 @@ import org.apache.http.util.EntityUtils;
 
 /**
  * ClassName: HttpUtils
- * 
  * @Description: http请求工具类
  * @author dapengniao
  * @date 2016年3月10日 下午3:57:14
@@ -49,14 +48,13 @@ public class HttpUtils {
 	 * @date 2016年3月10日 下午3:57:39
 	 */
 	@SuppressWarnings("resource")
-	public static String sendGet(String reqUrl, Map<String, String> params)
-			throws Exception {
+	public static String sendGet(String reqUrl, Map<String, String> params) throws Exception {
 		InputStream inputStream = null;
 		HttpGet request = new HttpGet();
 		try {
 			String url = buildUrl(reqUrl, params);
 			HttpClient client = new DefaultHttpClient();
-			System.out.println("========================="+url);
+			System.out.println("=========================" + url);
 			request.setHeader("Accept-Encoding", "gzip");
 			request.setURI(new URI(url));
 
@@ -84,8 +82,7 @@ public class HttpUtils {
 	 * @date 2016年3月10日 下午3:57:53
 	 */
 	@SuppressWarnings("resource")
-	public static String sendPost(String reqUrl, Map<String, String> params)
-			throws Exception {
+	public static String sendPost(String reqUrl, Map<String, String> params) throws Exception {
 		try {
 			Set<String> set = params.keySet();
 			List<NameValuePair> list = new ArrayList<NameValuePair>();
@@ -133,8 +130,7 @@ public class HttpUtils {
 	 * @author dapengniao
 	 * @date 2016年3月10日 下午3:58:15
 	 */
-	public static String sendPostBuffer(String urls, String params)
-			throws ClientProtocolException, IOException {
+	public static String sendPostBuffer(String urls, String params) throws ClientProtocolException, IOException {
 		HttpPost request = new HttpPost(urls);
 
 		StringEntity se = new StringEntity(params, HTTP.UTF_8);
@@ -167,16 +163,13 @@ public class HttpUtils {
 			con.setRequestProperty("Pragma:", "no-cache");
 			con.setRequestProperty("Cache-Control", "no-cache");
 			con.setRequestProperty("Content-Type", "text/xml");
-			OutputStreamWriter out = new OutputStreamWriter(
-					con.getOutputStream());
+			OutputStreamWriter out = new OutputStreamWriter(con.getOutputStream());
 			out.write(new String(xmlInfo.getBytes("utf-8")));
 			out.flush();
 			out.close();
-			BufferedReader br = new BufferedReader(new InputStreamReader(
-					con.getInputStream()));
+			BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
 			String lines = "";
-			for (String line = br.readLine(); line != null; line = br
-					.readLine()) {
+			for (String line = br.readLine(); line != null; line = br.readLine()) {
 				lines = lines + line;
 			}
 			return lines; // 返回请求结果
@@ -188,6 +181,11 @@ public class HttpUtils {
 		return "fail";
 	}
 
+	/**
+	 * TODO（方法详细描述说明、方法参数的具体涵义）
+	 * @author Administrator
+	 * @date 2016年5月13日 下午5:45:06
+	 */
 	private static String getJsonStringFromGZIP(InputStream is) {
 		String jsonString = null;
 		try {
@@ -202,7 +200,7 @@ public class HttpUtils {
 			int headerData = getShort(header);
 			// Gzip 流 的前两个字节是 0x1f8b
 			if (result != -1 && headerData == 0x1f8b) {
-				// LogUtil.i("HttpTask", " use GZIPInputStream  ");
+				// LogUtil.i("HttpTask", " use GZIPInputStream ");
 				is = new GZIPInputStream(bis);
 			} else {
 				// LogUtil.d("HttpTask", " not use GZIPInputStream");
@@ -232,10 +230,8 @@ public class HttpUtils {
 	/**
 	 * 构建get方式的url
 	 * 
-	 * @param reqUrl
-	 *            基础的url地址
-	 * @param params
-	 *            查询参数
+	 * @param reqUrl 基础的url地址
+	 * @param params 查询参数
 	 * @return 构建好的url
 	 */
 	public static String buildUrl(String reqUrl, Map<String, String> params) {

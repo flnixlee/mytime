@@ -240,7 +240,9 @@ public class HttpUtils {
 		for (String key : set) {
 			query.append(String.format("%s=%s&", key, params.get(key)));
 		}
-		return reqUrl + "?" + query.toString();
+		
+		String url = reqUrl + "?" + query.toString();
+		return url.substring(0, url.length()-2);
 	}
 
 }

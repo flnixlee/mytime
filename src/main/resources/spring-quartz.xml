@@ -24,9 +24,9 @@
 		<property name="jobDetail">
 			<ref bean="jobtaskForToken" />
 		</property>
-		<!-- cron表达式 -->
+		<!-- cron表达式：每2小时执行一次：0 0 0/2 * * ?-->
 		<property name="cronExpression">
-			<value>0 0/5 * * * ?</value>
+			<value>0 0/1 * * * ? </value><!-- 每分钟1次：0 0/1 * * * ? -->
 		</property>
 	</bean>
 

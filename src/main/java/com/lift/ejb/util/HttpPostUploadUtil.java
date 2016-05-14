@@ -32,7 +32,6 @@ public class HttpPostUploadUtil {
 
 	/**
 	 * 上传图片
-	 * 
 	 * @param urlStr
 	 * @param textMap
 	 * @param fileMap

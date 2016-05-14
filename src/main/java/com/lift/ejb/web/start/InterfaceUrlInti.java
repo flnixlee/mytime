@@ -26,14 +26,14 @@ public class InterfaceUrlInti {
 			in = cl.getResourceAsStream("configs.properties");
 			props.load(in);
 			for (Object key : props.keySet()) {
-				GlobalConstants.interfaceUrlProperties.put(key, props.get(key));
+				GlobalConstants.interfaceUrlProperties.put(key, ((String)props.get(key)).trim());
 			}
 
 //			props = new Properties();
 //			in = cl.getResourceAsStream("wechat.properties");
 //			props.load(in);
 //			for (Object key : props.keySet()) {
-//				GlobalConstants.interfaceUrlProperties.put(key, props.get(key));
+//				GlobalConstants.interfaceUrlProperties.put(key, ((String)props.get(key)).trim());
 //			}
 
 		} catch (IOException e) {

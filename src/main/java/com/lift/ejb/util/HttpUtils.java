@@ -242,7 +242,7 @@ public class HttpUtils {
 		}
 		
 		String url = reqUrl + "?" + query.toString();
-		return url.substring(0, url.length()-2);
+		return url.substring(0, url.length()-1);
 	}
 
 }

@@ -19,7 +19,9 @@ import com.lift.ejb.util.MessageUtil;
 public class MsgDispatcher {
 	public static String processMessage(Map<String, String> map) {
 		String openid=map.get("FromUserName"); //用户openid
+		System.out.println("用户openid:"+openid);
 		String mpid=map.get("ToUserName");   //公众号原始ID
+		System.out.println("公众号原始ID:"+mpid);
 		
 		//普通文本消息
 		TextMessage txtmsg=new TextMessage();

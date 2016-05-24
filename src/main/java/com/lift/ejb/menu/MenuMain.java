@@ -1,6 +1,7 @@
 package com.lift.ejb.menu;
 
 import com.alibaba.fastjson.JSONObject;
+import com.lift.ejb.util.GlobalConstants;
 import com.lift.ejb.util.HttpUtils;
 
 import net.sf.json.JSONArray;
@@ -38,7 +39,7 @@ public class MenuMain {
 		menujson.put("button", button);
 		System.out.println(menujson);
 		//这里为请求接口的url：+号后面的是token，这里就不做过多对token获取的方法解释
-		String url="https://api.weixin.qq.com/cgi-bin/menu/create?access_token="+"upeDW-2pWrHgLx3fGqgsvAvf-HkQBA--5uHOo9OW16uNdL9zNPnnuIN01UDFXh_5d-QdcnBxux9tXigFwm1z0SInbdkXEKa1pMhTqaZVxK7sCPj7421YQGI0v3evwiwiWALjAHASWH";
+		String url="https://api.weixin.qq.com/cgi-bin/menu/create?access_token="+GlobalConstants.getInterfaceUrl("access_token");
 		
 		try{
 			String rs=HttpUtils.sendPostBuffer(url, menujson.toJSONString());

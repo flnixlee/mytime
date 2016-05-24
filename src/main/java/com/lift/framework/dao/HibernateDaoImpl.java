@@ -335,7 +335,7 @@ public class HibernateDaoImpl<T> implements Dao<T> {
 			// }
 			//
 			// bean.setLastUpdateUser(user);
-			bean.setLastUpdateTime(new Date());
+			bean.setLastUpdateTm(new Date());
 		}
 		return t;
 	}

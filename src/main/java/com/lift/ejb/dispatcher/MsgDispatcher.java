@@ -69,6 +69,7 @@ public class MsgDispatcher {
 		
 		
 		if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_LINK)) { // 链接消息
+			System.out.println("==============这是链接消息！");
 			txtmsg.setContent("");
 			return MessageUtil.textMessageToXml(txtmsg);
 		}

@@ -12,123 +12,76 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.lift.framework.util.json.serializer.DateJsonSerializer;
 
+/**
+ * 基类
+ * @author Administrator
+ * @date 2016年5月24日 下午10:38:15
+ */
+@SuppressWarnings("serial")
 @MappedSuperclass
 @JacksonXmlRootElement(localName = "", namespace = "")
 public class EntityBean implements Serializable {
 
-    private static final long serialVersionUID = -3076811241619904594L;
-    // @Transient // 不生成映射列
+	public EntityBean() {
+	}
 
-    public static final int DEFAULT_USER = 1;
+	@Column(name = "CREATOR", nullable = true, length = 32)
+	private String creator;// 创建人
 
-    public EntityBean() {
-    }
+	@JsonSerialize(using = DateJsonSerializer.class)
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "CREATE_TM", nullable = true)
+	private Date createTm;
 
-    @JsonSerialize(using = DateJsonSerializer.class)
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "LAST_UPDATE_TIME", nullable = true)
-    private Date lastUpdateTime;
+	@Column(name = "LAST_UPDATE_USER", nullable = true, length = 32)
+	private String lastUpdateUser;// 修改人
 
-    @JsonSerialize(using = DateJsonSerializer.class)
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "CREATION_TIME", nullable = true)
-    private Date creationTime;
+	@JsonSerialize(using = DateJsonSerializer.class)
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "LAST_UPDATE_TM", nullable = true)
+	private Date lastUpdateTm;
 
-    @Column(name = "IS_ENABLE", nullable = true)
-    private boolean enable = true;
+	@Column(name = "ENABLE", nullable = true)
+	private boolean enable = true;
 
-    @Column(name = "CREATE_USER", nullable = true)
-    private Integer createUser;// 创建人
+	public String getCreator() {
+		return creator;
+	}
 
-    @Column(name = "LAST_UPDATE_USER", nullable = true)
-    private Integer lastUpdateUser;// 修改人
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
 
-    /**
-     * 获取ID
-     * 
-     * @return
-     */
-    public int getId() {
-	return 0;
-    };
+	public Date getCreateTm() {
+		return createTm;
+	}
 
-    /**
-     * 设置ID
-     * 
-     * @param id
-     */
-    public void setId(int id) {
+	public void setCreateTm(Date createTm) {
+		this.createTm = createTm;
+	}
 
-    }
+	public String getLastUpdateUser() {
+		return lastUpdateUser;
+	}
 
-    /**
-     * 获取最后修改的时间
-     * 
-     * @return
-     */
-    public Date getLastUpdateTime() {
-	return lastUpdateTime;
-    }
+	public void setLastUpdateUser(String lastUpdateUser) {
+		this.lastUpdateUser = lastUpdateUser;
+	}
 
-    /**
-     * 设置最后修改的时间
-     * 
-     * @param lastUpdateTime
-     */
-    public void setLastUpdateTime(Date lastUpdateTime) {
-	this.lastUpdateTime = lastUpdateTime;
-    }
+	public Date getLastUpdateTm() {
+		return lastUpdateTm;
+	}
 
-    /**
-     * 获取创建的时间
-     * 
-     * @return
-     */
-    public Date getCreationTime() {
-	return creationTime;
-    }
+	public void setLastUpdateTm(Date lastUpdateTm) {
+		this.lastUpdateTm = lastUpdateTm;
+	}
 
-    /**
-     * 设置创建的时间
-     * 
-     * @param creationTime
-     */
-    public void setCreationTime(Date creationTime) {
-	this.creationTime = creationTime;
-    }
+	public boolean isEnable() {
+		return enable;
+	}
 
-    /**
-     * 是否启用
-     * 
-     * @return
-     */
-    public boolean isEnable() {
-	return enable;
-    }
-
-    /**
-     * 是否启用
-     * 
-     * @param enable
-     */
-    public void setEnable(boolean enable) {
-	this.enable = enable;
-    }
-
-    public Integer getCreateUser() {
-	return createUser;
-    }
-
-    public void setCreateUser(Integer createUser) {
-	this.createUser = createUser;
-    }
-
-    public Integer getLastUpdateUser() {
-	return lastUpdateUser;
-    }
-
-    public void setLastUpdateUser(Integer lastUpdateUser) {
-	this.lastUpdateUser = lastUpdateUser;
-    }
+	public void setEnable(boolean enable) {
+		this.enable = enable;
+	}
 
 }

@@ -33,7 +33,7 @@ public class SaveOrUpdateEventListener implements PreInsertEventListener, PreUpd
 			// bean.setCreationTime(new Date());
 			//
 			// bean.setLastUpdateUser(user);
-			bean.setLastUpdateTime(new Date());
+			bean.setLastUpdateTm(new Date());
 		}
 		return true;
 	}
@@ -50,7 +50,7 @@ public class SaveOrUpdateEventListener implements PreInsertEventListener, PreUpd
 
 			EntityBean bean = (EntityBean) event.getEntity();
 			// bean.setLastUpdateUser(user);
-			bean.setLastUpdateTime(new Date());
+			bean.setLastUpdateTm(new Date());
 		}
 		return true;
 	}
